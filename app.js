@@ -13,19 +13,7 @@ function getComputerChoice(){
     }
 }
 
-function getHumanChoice(){
-    let humanChoice = prompt("Enter Your Choice")
-    if(!humanChoice){
-        alert("enter Choice")
-    }
-    humanChoice = humanChoice.toLowerCase()
 
-    if(humanChoice !=="rock" && humanChoice !=="paper" && humanChoice !=="scissors"){
-        alert("Invalid Choice")
-        return getHumanChoice()
-    }
-    return humanChoice
-}
 
 let humanScore = 0;
 let ComputerScore = 0;
