@@ -30,7 +30,7 @@ function getHumanChoice(){
 let humanScore = 0;
 let ComputerScore = 0;
 
-function playround(humanChoice,computerChoice){
+function playRound(humanChoice,computerChoice){
     humanChoice = humanChoice.toLowerCase();
     computerChoice = computerChoice.toLowerCase();
     if (humanChoice== computerChoice){
@@ -51,24 +51,52 @@ function playround(humanChoice,computerChoice){
     }
 }
 
-function playGame(playRound){
-    while(humanScore<5 && ComputerScore<5){
-        let humanChoice = getHumanChoice();
+
+
+let rock = document.getElementById("rock")
+let paper = document.getElementById("paper")
+let scissors = document.getElementById("scissors")
+
+let roundResult = document.getElementById("round-results")
+let score = document.getElementById("score")
+let finalWinner = document.getElementById("final-winner")
+
+
+
+function updateDisplay(humanChoice,computerChoice, result){
+    roundResult.textContent = `You chose ${humanChoice}, Computer chose ${computerChoice}. Result: ${result}`
+    score.textContent = `Human: ${humanScore} | Computer: ${ComputerScore}`
+
+}
+
+rock.addEventListener('click', ()=>handleClick('rock'))
+paper.addEventListener('click', ()=>handleClick('paper'))
+scissors.addEventListener('click', ()=>handleClick('scissors'))
+
+function handleClick(humanChoice){
+    if(humanScore<5 && ComputerScore<5){
         let computerChoice = getComputerChoice();
         let result = playRound(humanChoice, computerChoice)
-    console.log("Computer Choice", computerChoice)
-        console.log("Your Choice", humanChoice)
-        console.log(result)
-        console.log(`Scores: Computer: ${ComputerScore} || Human: ${humanScore}`)
-    }
-    if(humanScore==5){
-        console.log("You won the game"); 
-    }
-    if(ComputerScore==5){
-        console.log("You lost the game")
+        updateDisplay(humanChoice, computerChoice, result)
+        checkWinner();
     }
 }
 
+function disableButtons(){
+    rock.disabled=true
+    paper.disabled=true
+     scissors.disabled=true
 
+}
 
-playGame(playround)
+function checkWinner(){
+    if(humanScore==5){
+        finalWinner.textContent = "You won the game. Refresh to restart"
+        disableButtons()
+    }
+    else if(ComputerScore==5){
+        finalWinner.textContent = "You lost the game. Refresh to restart"
+        disableButtons()
+    }
+}
+
